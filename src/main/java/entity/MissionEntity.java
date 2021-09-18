@@ -9,14 +9,13 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "mission", schema = "spring_docker", catalog = "")
-
 public class MissionEntity {
     private int id;
     private String name;
     private String imageryType;
     private Timestamp startDate;
     private Timestamp finishDate;
-    private ProductEntity productByName;
+//    private ProductEntity productByName;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -94,13 +93,13 @@ public class MissionEntity {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "name", referencedColumnName = "mission_name")
-    public ProductEntity getProductByName() {
-        return productByName;
-    }
-
-    public void setProductByName(ProductEntity productByName) {
-        this.productByName = productByName;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "name", referencedColumnName = "mission_name")
+//    public ProductEntity getProductByName() {
+//        return productByName;
+//    }
+//
+//    public void setProductByName(ProductEntity productByName) {
+//        this.productByName = productByName;
+//    }
 }
