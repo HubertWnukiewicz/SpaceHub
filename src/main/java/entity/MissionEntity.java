@@ -1,15 +1,25 @@
 package entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+
+@Entity
+@Table(name = "mission", schema = "spring_docker", catalog = "")
 
 public class MissionEntity {
     private int id;
     private String name;
-    private Object imageryType;
+    private String imageryType;
     private Timestamp startDate;
     private Timestamp finishDate;
     private ProductEntity productByName;
 
+    @Id
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -18,6 +28,8 @@ public class MissionEntity {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "name", nullable = true, length = 32)
     public String getName() {
         return name;
     }
@@ -26,14 +38,18 @@ public class MissionEntity {
         this.name = name;
     }
 
-    public Object getImageryType() {
+    @Basic
+    @Column(name = "imagery_type", nullable = true)
+    public String getImageryType() {
         return imageryType;
     }
 
-    public void setImageryType(Object imageryType) {
+    public void setImageryType(String imageryType) {
         this.imageryType = imageryType;
     }
 
+    @Basic
+    @Column(name = "start_date", nullable = true)
     public Timestamp getStartDate() {
         return startDate;
     }
@@ -42,6 +58,8 @@ public class MissionEntity {
         this.startDate = startDate;
     }
 
+    @Basic
+    @Column(name = "finish_date", nullable = true)
     public Timestamp getFinishDate() {
         return finishDate;
     }
@@ -76,6 +94,8 @@ public class MissionEntity {
         return result;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "name", referencedColumnName = "mission_name")
     public ProductEntity getProductByName() {
         return productByName;
     }

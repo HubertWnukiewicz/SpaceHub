@@ -1,15 +1,28 @@
 package entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "product", schema = "spring_docker", catalog = "")
+@TypeDef(
+        name = "json",
+        typeClass = JsonType.class
+)
 public class ProductEntity {
     private int id;
     private String missionName;
     private Timestamp acquisitionDate;
-    private Object productFootprint;
+    private String productFootprint;
     private Double price;
     private String url;
 
+    @Id
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -18,6 +31,8 @@ public class ProductEntity {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "mission_name", nullable = true, length = 32)
     public String getMissionName() {
         return missionName;
     }
@@ -26,6 +41,8 @@ public class ProductEntity {
         this.missionName = missionName;
     }
 
+    @Basic
+    @Column(name = "acquisition_date", nullable = true)
     public Timestamp getAcquisitionDate() {
         return acquisitionDate;
     }
@@ -34,14 +51,18 @@ public class ProductEntity {
         this.acquisitionDate = acquisitionDate;
     }
 
-    public Object getProductFootprint() {
+    @Type(type = "json")
+    @Column(name = "product_footprint", nullable = true, columnDefinition = "json")
+    public String getProductFootprint() {
         return productFootprint;
     }
 
-    public void setProductFootprint(Object productFootprint) {
+    public void setProductFootprint(String productFootprint) {
         this.productFootprint = productFootprint;
     }
 
+    @Basic
+    @Column(name = "price", nullable = true, precision = 0)
     public Double getPrice() {
         return price;
     }
@@ -50,6 +71,8 @@ public class ProductEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "url", nullable = false, length = 64)
     public String getUrl() {
         return url;
     }

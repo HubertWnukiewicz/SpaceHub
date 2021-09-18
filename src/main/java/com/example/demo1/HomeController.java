@@ -1,13 +1,33 @@
 package com.example.demo1;
 
+import entity.MissionEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Timestamp;
+
 @Controller
-public class HomeController extends BaseController {
+public class HomeController  {
+
+    private Session session;
 
     public HomeController() {
-        super();
+        Configuration configuration = new Configuration().configure();
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
+                applySettings(configuration.getProperties());
+        SessionFactory factory = configuration.buildSessionFactory(builder.build());
+        this.session = factory.getCurrentSession();
+//        MissionEntity me = new MissionEntity();
+//        me.setImageryType("Panchromatic");
+//        me.setName("mission_2");
+//        me.setStartDate(new Timestamp(System.currentTimeMillis()));
+//        me.setFinishDate(new Timestamp(System.currentTimeMillis()));
+//        this.session.persist(me);
+//        this.session.flush();
     }
 
     @RequestMapping("/")
