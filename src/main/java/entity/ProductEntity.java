@@ -1,18 +1,18 @@
 package entity;
 
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import com.example.demo1.Cordinates;
+import com.example.demo1.JsonToMapConverter;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Map;
 
 @Entity
 @Table(name = "product", schema = "spring_docker", catalog = "")
-@TypeDef(
-        name = "json",
-        typeClass = JsonType.class
-)
 public class ProductEntity {
     private int id;
     private String missionName;
@@ -51,8 +51,8 @@ public class ProductEntity {
         this.acquisitionDate = acquisitionDate;
     }
 
-    @Type(type = "json")
-    @Column(name = "product_footprint", nullable = true, columnDefinition = "json")
+    @Basic
+    @Column(name = "product_footprint", nullable = true, length = 64)
     public String getProductFootprint() {
         return productFootprint;
     }

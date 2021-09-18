@@ -15,7 +15,7 @@ public class MissionEntity {
     private String imageryType;
     private Timestamp startDate;
     private Timestamp finishDate;
-//    private ProductEntity productByName;
+    private ProductEntity productByName;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -93,13 +93,13 @@ public class MissionEntity {
         return result;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "name", referencedColumnName = "mission_name")
-//    public ProductEntity getProductByName() {
-//        return productByName;
-//    }
-//
-//    public void setProductByName(ProductEntity productByName) {
-//        this.productByName = productByName;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "names", referencedColumnName = "mission_name")
+    public ProductEntity getProductByName() {
+        return productByName;
+    }
+
+    public void setProductByName(ProductEntity productByName) {
+        this.productByName = productByName;
+    }
 }

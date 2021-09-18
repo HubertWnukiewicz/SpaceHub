@@ -1,6 +1,7 @@
 package com.example.demo1;
 
 import entity.MissionEntity;
+import entity.ProductEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -25,13 +26,13 @@ public class HomeController  {
     private SessionFactory factory;
 
     public HomeController() {
-        Configuration configuration = new Configuration().addAnnotatedClass(MissionEntity.class).configure();
+        Configuration configuration = new Configuration().addAnnotatedClass(MissionEntity.class).addAnnotatedClass(ProductEntity.class).configure();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                 applySettings(configuration.getProperties());
         this.factory = configuration.buildSessionFactory(builder.build());
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @RequestMapping(value = "/mission/insert", method = RequestMethod.POST)
     public ResponseEntity<?> addMission() {
         Session session = factory.openSession();
         session.beginTransaction();
@@ -46,7 +47,7 @@ public class HomeController  {
         return ResponseEntity.ok(me);
     }
 
-    @RequestMapping(value = "/test/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/mission/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getMission(@PathVariable Integer id) {
         Session session = factory.openSession();
         session.beginTransaction();
@@ -58,8 +59,8 @@ public class HomeController  {
         return ResponseEntity.ok(me);
     }
 
-    @RequestMapping(value = "/test/all", method = RequestMethod.POST)
-    public List<?> getAll()
+    @RequestMapping(value = "/mission/all", method = RequestMethod.POST)
+    public ResponseEntity<?> getAll()
     {
         Session session = factory.openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -70,6 +71,36 @@ public class HomeController  {
         List<MissionEntity> response = allQuery.getResultList();
         session.close();
 
-        return response;
+        return ResponseEntity.ok(response);
     }
+
+    @RequestMapping(value = "/mission/find_by_name", method = RequestMethod.POST)
+    public ResponseEntity<?> findByName(@PathVariable String missionName)
+    {
+        Session session = factory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT me.name FROM MissionEntity me WHERE me.name LIKE :mission_name");
+        query.setParameter("mission_name", missionName);
+        List<MissionEntity> me = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return ResponseEntity.ok(me);
+
+    }
+
+    @RequestMapping(value = "/mission/find_by_type", method = RequestMethod.POST)
+    public ResponseEntity<?> findByType(@PathVariable String missionType)
+    {
+        Session session = factory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT me.name FROM MissionEntity me WHERE me.imageryType = :mission_type");
+        query.setParameter("mission_type", missionType);
+        List<MissionEntity> me = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return ResponseEntity.ok(me);
+
+    }
+
+
 }
