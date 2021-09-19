@@ -1,27 +1,21 @@
 //package com.example.demo1;
 //
 //import java.io.*;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 //import javax.servlet.http.*;
 //import javax.servlet.annotation.*;
 //
-//@WebServlet(name = "helloServlet", value = "/hello-servlet")
-//public class HelloServlet extends HttpServlet {
+//public class HelloServlet {
 //    private String message;
 //
-//    public void init() {
-//        message = "Hello World!";
+//    public static void main(String[] args) throws ParseException {
+//        String dateAsString = "2010-09-18 23:36:05";
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date formattedDate = null, formattedSecondDate = null;
+//        formattedDate = formatter.parse(dateAsString);
+//        System.out.println(formattedDate);
 //    }
 //
-//    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        response.setContentType("text/html");
-//
-//        // Hello
-//        PrintWriter out = response.getWriter();
-//        out.println("<html><body>");
-//        out.println("<h1>" + message + "</h1>");
-//        out.println("</body></html>");
-//    }
-//
-//    public void destroy() {
-//    }
 //}

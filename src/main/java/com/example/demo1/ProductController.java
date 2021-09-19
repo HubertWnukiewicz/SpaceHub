@@ -113,20 +113,20 @@ public class ProductController {
         Session session = factory.openSession();
         session.beginTransaction();
         List<ProductEntity> me;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date formattedDate = null, formattedSecondDate = null;
         try {
             formattedDate = formatter.parse(date);
         } catch (ParseException e) {
-
+            throw new  IllegalArgumentException("Date has inncorect format!");
         }
 
-        if (searchType == "lower") {
+        if (searchType.equals("lower")) {
             Query query = session.createQuery("SELECT pe.id,pe.acquisitionDate,pe.missionName,pe.price,pe.productFootprint,pe.url FROM ProductEntity pe WHERE pe.acquisitionDate < :date");
             query.setParameter("date", formattedDate);
             me = query.getResultList();
             //lower than
-        } else if(searchType == "grater") {
+        } else if(searchType.equals("grater")) {
             //greater than
             Query query = session.createQuery("SELECT pe.id,pe.acquisitionDate,pe.missionName,pe.price,pe.productFootprint,pe.url FROM ProductEntity pe WHERE pe.acquisitionDate > :date");
             query.setParameter("date", formattedDate);
@@ -138,7 +138,7 @@ public class ProductController {
             try {
                 formattedSecondDate = formatter.parse(secondDate);
             } catch (ParseException e) {
-
+                throw new  IllegalArgumentException("Date has inncorect format!");
             }
 
             query.setParameter("secondDate", formattedSecondDate);
