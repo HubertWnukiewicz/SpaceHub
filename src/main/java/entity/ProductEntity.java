@@ -1,15 +1,7 @@
 package entity;
 
-import com.example.demo1.Cordinates;
-import com.example.demo1.JsonToMapConverter;
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Map;
 
 @Entity
 @Table(name = "product", schema = "spring_docker", catalog = "")

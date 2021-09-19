@@ -9,12 +9,12 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,7 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:8090")
 public class ProductController {
 
     private SessionFactory factory;
@@ -53,6 +54,7 @@ public class ProductController {
         return ResponseEntity.ok(pe);
     }
 
+    @RolesAllowed("hasRole('ADMIN')")
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getMission(@PathVariable Integer id) {
         Session session = factory.openSession();
@@ -65,6 +67,7 @@ public class ProductController {
         return ResponseEntity.ok(me);
     }
 
+    @RolesAllowed("hasRole('ADMIN')")
     @RequestMapping(value = "/product/all", method = RequestMethod.GET)
     public ResponseEntity<?> getAll()
     {
