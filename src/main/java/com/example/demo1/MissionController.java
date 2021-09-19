@@ -20,12 +20,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8090")
-public class HomeController  {
+public class MissionController {
 
     private SessionFactory factory;
 
-    public HomeController() {
-        Configuration configuration = new Configuration().addAnnotatedClass(MissionEntity.class).addAnnotatedClass(ProductEntity.class).configure();
+    public MissionController() {
+        Configuration configuration = new Configuration().addAnnotatedClass(MissionEntity.class).configure();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                 applySettings(configuration.getProperties());
         this.factory = configuration.buildSessionFactory(builder.build());

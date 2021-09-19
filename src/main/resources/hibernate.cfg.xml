@@ -13,9 +13,10 @@
     <property name="hibernate.show_sql">true</property>
     <mapping class="entity.MissionEntity"/>
     <mapping class="entity.ProductEntity"/>
+<!--      <mapping class="entity.RolesEntity"/>-->
+<!--      <mapping class="entity.UserEntity"/>-->
+<!--      <mapping class="entity.UserRolesEntity"/>-->
 
-    <!--    <mapping resource="MissionEntity.hbm.xml"/>-->
-    <!--    <mapping resource="ProductEntity.hbm.xml"/>-->
 
 
     <!-- DB schema will be updated if needed -->

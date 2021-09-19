@@ -15,7 +15,6 @@ public class MissionEntity {
     private String imageryType;
     private Timestamp startDate;
     private Timestamp finishDate;
-    private ProductEntity productByName;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -91,15 +90,5 @@ public class MissionEntity {
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (finishDate != null ? finishDate.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "names", referencedColumnName = "mission_name")
-    public ProductEntity getProductByName() {
-        return productByName;
-    }
-
-    public void setProductByName(ProductEntity productByName) {
-        this.productByName = productByName;
     }
 }
